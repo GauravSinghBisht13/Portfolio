@@ -5,9 +5,12 @@ import { MdOutlineEmail } from "react-icons/md";
 import { GoDownload } from "react-icons/go";
 
 import bgImage from "../assets/Profile.jpg";
+import { useSelector } from "react-redux";
 
 export default function Hero() {
-  const roles = ["@Thoughts2Binary"];
+  const introduction = useSelector((state) => state.intro.introduction);
+
+  const roles = [introduction.title.company];
 
   const [currentRoleIndex, setCurrentRoleIndex] = useState(0);
   const [displayText, setDisplayText] = useState("");
@@ -59,31 +62,26 @@ export default function Hero() {
         </div>
 
         <h1 className="text-5xl md:text-6xl lg:text-7xl font-bold text-white mb-4 drop-shadow-lg">
-          Gaurav Singh Bisht
+          {introduction.name}
         </h1>
 
-        <h1 className="text-3xl md:text-4xl lg:text-5xl font-extralight text-white mb-4 drop-shadow-lg  py-3 opacity-80">
-          Software Developer{" "}
-          <span className="text-blue-400">{displayText}</span>
+        <h1 className="text-3xl md:text-4xl lg:text-5xl font-extralight text-white mb-4 drop-shadow-lg py-3 opacity-80 flex items-center gap-3 flex-wrap">
+          <span>{introduction.title.first}</span>
+          <span className="text-blue-400 whitespace-nowrap">{displayText}</span>
         </h1>
 
         <span className="text-white text-2xl opacity-70">
-          I build scalable and high-performance web applications using React,
-          JavaScript, Node.js, and MongoDB. My focus is on creating clean,
-          user-centric interfaces, integrating efficient APIs, and optimizing
-          applications for real-world performance. I’m also exploring AI-powered
-          solutions, leveraging LLM APIs to build smarter and more impactful
-          applications.
+          {introduction.intro}
         </span>
 
         <span className="text-white text-xl flex mt-5 opacity-70">
           <p className="flex px-2 py-2  gap-2">
             <FaLocationDot className="m-auto" />
-            Gurugram, Haryana{" "}
+            {introduction.location}{" "}
           </p>
           <p className="flex px-2 py-2  gap-2">
             <MdOutlineEmail className="m-auto" />
-            gvsingh999@gmail.com
+            {introduction.email}
           </p>
         </span>
 

@@ -1,31 +1,9 @@
 import React from "react";
 import AchivementCard from "./AchivementCard";
-import { FaTrophy } from "react-icons/fa";
-import { FaBug } from "react-icons/fa";
-import { FaReact } from "react-icons/fa";
-import { FaExchangeAlt } from "react-icons/fa";
+import { useSelector } from "react-redux";
 
 const Achivement = () => {
-  const Achivements = [
-    {
-      title: "Star Performer (2025)",
-      icon: FaTrophy,
-      description:
-        "Recognized as a Star Performer for delivering high-quality work, resolving critical issues, and contributing to team productivity.",
-    },
-    {
-      title: "High-Impact Bug Resolution",
-      icon: FaBug,
-      description:
-        "Resolved 300+ bugs across staging and production, improving application stability and overall user experience.",
-    },
-    {
-      title: "Scalable Frontend Development",
-      icon: FaReact,
-      description:
-        "Developed and maintained scalable React applications with reusable components and optimized state management.",
-    },
-  ];
+  const achivement = useSelector((state) => state.achiv.achivement);
   return (
     <>
       <div className="bg-blue-600/5 px-10 py-5">
@@ -36,7 +14,7 @@ const Achivement = () => {
           </h1>
 
           <div className="flex mt-20 gap-8 w-[85%] m-auto">
-            {Achivements.map((item, index) => (
+            {achivement.map((item, index) => (
               <AchivementCard
                 key={index}
                 title={item.title}

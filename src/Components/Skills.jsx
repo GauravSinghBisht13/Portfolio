@@ -9,53 +9,10 @@ import { SlBadge } from "react-icons/sl";
 import { BsCalendarDateFill } from "react-icons/bs";
 import { FaCertificate } from "react-icons/fa6";
 
-const Skills = () => {
-  const skillsData = [
-    {
-      title: "Frontend Engineering",
-      icon: IoCodeSlash,
-      skills: [
-        "React.js",
-        "JavaScript",
-        "HTML5",
-        "CSS",
-        "Tailwind CSS",
-        "Bootstrap",
-        "Next.Js",
-      ],
-    },
-    {
-      title: "Backend & Databases",
-      icon: FaDatabase,
-      skills: ["Node.js", "Express.js", "MongoDB", "MySQL"],
-    },
-    {
-      title: "AI & Developer Tools",
-      icon: FaBrain,
-      skills: [
-        "Prompt Engineering",
-        "OpenAI APIs",
-        "Gemini APIs",
-        "Git",
-        "AWS (Basic)",
-        "VS Code",
-      ],
-    },
+import { useSelector } from "react-redux";
 
-    {
-      title: "Soft Skills",
-      icon: FaBrain,
-      skills: [
-        "Quick Learner",
-        "Problem Solving",
-        "Team Collaboration",
-        "Effective Communication",
-        "Adaptability",
-        "Attention to Detail",
-        "Analytical Thinking",
-      ],
-    },
-  ];
+const Skills = () => {
+  const skill = useSelector((state) => state.skill.skill);
   return (
     <>
       <section id="skills">
@@ -66,7 +23,7 @@ const Skills = () => {
           </h1>
 
           <div className="grid grid-cols-2 gap-8 mt-20 w-[85%] m-auto">
-            {skillsData.map((item, index) => (
+            {skill.map((item, index) => (
               <SkillCard key={index} item={item} icon={item.icon} />
             ))}
           </div>
