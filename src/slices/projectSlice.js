@@ -2,6 +2,30 @@ import { createSlice } from "@reduxjs/toolkit";
 const initialState = {
   project: [
     {
+      title: "SpendIQ",
+      description:
+        "A full-stack expense management app built with Next.js, React, TypeScript, PostgreSQL, and Prisma. Features authentication, expense CRUD, dashboards, and AI-powered financial insights using Groq AI.",
+      image: "/src/assets/spemdiq.png",
+      technologies: [
+        "Next.js",
+        "React",
+        "TypeScript",
+        "PostgreSQL",
+        "Prisma",
+        "Groq AI",
+      ],
+      view: "https://spend-iq-smoky.vercel.app/",
+    },
+    {
+      title: "Sudoku Game",
+      description:
+        "An interactive Sudoku game built with Next.js, React, TypeScript, and Tailwind CSS. Implements backtracking for puzzle solving, unique puzzle generation, state management, timer, and responsive UI.",
+      image: "/src/assets/sudoko.png",
+      technologies: ["Next.js", "React", "TypeScript", "Tailwind CSS"],
+      view: "https://sudoku-game-sigma-nine.vercel.app/",
+    },
+
+    {
       title: "Twitter Clone",
       description:
         "A full-stack social media application replicated using the MERN (MongoDB, Express.js, React, Node.js) tech stack. It features real-time-inspired user interactions, dynamic content updates, and a fully deployed responsive interface.",

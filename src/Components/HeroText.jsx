@@ -1,11 +1,10 @@
 import { useEffect, useState } from "react";
-import { Home, User, FileText, Image, Mail } from "lucide-react";
 import { FaLocationDot } from "react-icons/fa6";
 import { MdOutlineEmail } from "react-icons/md";
 import { GoDownload } from "react-icons/go";
-
-import bgImage from "../assets/Profile.jpg";
 import { useSelector } from "react-redux";
+
+import bgImage from "../assets/Profile2.png";
 
 export default function Hero() {
   const introduction = useSelector((state) => state.intro.introduction);
@@ -20,8 +19,10 @@ export default function Hero() {
     const section = document.getElementById(id);
 
     if (section) {
+      const top = section.getBoundingClientRect().top + window.scrollY - 80;
+
       window.scrollTo({
-        top: section.offsetTop - 80, // adjust for navbar height
+        top,
         behavior: "smooth",
       });
     }
@@ -30,96 +31,133 @@ export default function Hero() {
   useEffect(() => {
     const currentWord = roles[currentRoleIndex];
 
-    const timeout = setTimeout(
-      () => {
-        setDisplayText((prev) =>
-          isDeleting
-            ? currentWord.substring(0, prev.length - 1)
-            : currentWord.substring(0, prev.length + 1),
-        );
+    if (!currentWord) return;
 
-        if (!isDeleting && displayText === currentWord) {
-          setTimeout(() => setIsDeleting(true), 1000);
-        }
+    let timeout;
 
-        if (isDeleting && displayText === "") {
-          setIsDeleting(false);
-          setCurrentRoleIndex((prev) => (prev + 1) % roles.length);
-        }
-      },
-      isDeleting ? 50 : 100,
-    );
+    if (!isDeleting && displayText === currentWord) {
+      timeout = setTimeout(() => {
+        setIsDeleting(true);
+      }, 1200);
+    } else if (isDeleting && displayText === "") {
+      setIsDeleting(false);
+      setCurrentRoleIndex((prev) => (prev + 1) % roles.length);
+    } else {
+      timeout = setTimeout(
+        () => {
+          setDisplayText((prev) =>
+            isDeleting
+              ? currentWord.substring(0, prev.length - 1)
+              : currentWord.substring(0, prev.length + 1),
+          );
+        },
+        isDeleting ? 45 : 90,
+      );
+    }
 
     return () => clearTimeout(timeout);
   }, [displayText, isDeleting, currentRoleIndex]);
 
   return (
-    <div className="h-screen w-full flex bg-[#020817]">
+    <section
+      id="home"
+      className="relative flex min-h-screen w-full flex-col overflow-hidden bg-[#050505] text-white lg:flex-row"
+    >
+      {/* Subtle purple ambient lighting */}
+      <div className="pointer-events-none absolute -left-40 top-10 h-96 w-96 rounded-full bg-purple-600/[0.07] blur-[140px]" />
+
+      <div className="pointer-events-none absolute -right-32 bottom-0 h-96 w-96 rounded-full bg-violet-500/[0.06] blur-[140px]" />
+
       {/* LEFT CONTENT */}
-      <div className="flex flex-col justify-center h-full pl-32 w-1/2">
-        <div className="inline-block w-fit px-4 py-1 text-md tracking-widest text-blue-400 border border-blue-500 rounded-full mb-4">
-          AVAILABLE FOR OPPORTUNITIES
+      <div className="relative z-10 order-1 flex w-full min-w-0 flex-col justify-center px-5 pb-8 pt-10 sm:px-8 sm:pt-12 md:px-12 lg:w-1/2 lg:px-10 lg:py-16 xl:px-16 2xl:px-24">
+        {/* Availability badge */}
+        <div className="mb-5 inline-flex max-w-full items-center gap-2 self-start rounded-full border border-purple-500/25 bg-purple-500/[0.06] px-3 py-2 text-[10px] font-semibold tracking-wide text-purple-300 sm:text-xs sm:tracking-wider">
+          <span className="relative flex h-2 w-2 shrink-0">
+            <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-purple-400 opacity-50" />
+            <span className="relative inline-flex h-2 w-2 rounded-full bg-purple-400" />
+          </span>
+          ACTIVELY SEEKING NEW OPPORTUNITIES
         </div>
 
-        <h1 className="text-5xl md:text-6xl lg:text-7xl font-bold text-white mb-4 drop-shadow-lg">
+        {/* Name */}
+        <h1 className="mb-3 break-words text-3xl font-bold tracking-tight text-white sm:text-4xl md:text-5xl xl:text-6xl 2xl:text-7xl">
           {introduction.name}
         </h1>
 
-        <h1 className="text-3xl md:text-4xl lg:text-5xl font-extralight text-white mb-4 drop-shadow-lg py-3 opacity-80 flex items-center gap-3 flex-wrap">
+        {/* Animated title */}
+        <h2 className="mb-4 flex min-w-0 flex-wrap items-center gap-x-2 py-1 text-lg font-light leading-snug text-gray-300 sm:text-xl md:text-2xl xl:text-3xl">
           <span>{introduction.title.first}</span>
-          <span className="text-blue-400 whitespace-nowrap">{displayText}</span>
-        </h1>
 
-        <span className="text-white text-2xl opacity-70">
+          <span className="min-w-0 break-words font-semibold text-purple-400">
+            {displayText}
+            <span className="ml-0.5 inline-block h-5 w-[2px] animate-pulse bg-purple-400 align-middle sm:h-6" />
+          </span>
+        </h2>
+
+        {/* Profile image - mobile/tablet */}
+        <div className="my-4 flex h-[240px] w-full items-center justify-center overflow-hidden rounded-2xl border border-white/10 bg-[#0a0a0a] sm:my-5 sm:h-[330px] md:h-[390px] lg:hidden">
+          <img
+            src={bgImage}
+            alt="Profile portrait"
+            className="h-full w-full object-contain object-center"
+          />
+        </div>
+
+        {/* Introduction */}
+        <p className="max-w-2xl break-words text-sm leading-7 text-gray-400 sm:text-base md:text-lg xl:text-xl">
           {introduction.intro}
-        </span>
+        </p>
 
-        <span className="text-white text-xl flex mt-5 opacity-70">
-          <p className="flex px-2 py-2  gap-2">
-            <FaLocationDot className="m-auto" />
-            {introduction.location}{" "}
+        {/* Location and email */}
+        <div className="mt-5 flex flex-col gap-3 text-sm text-gray-400 sm:flex-row sm:flex-wrap sm:gap-x-6 sm:gap-y-3 sm:text-base">
+          <p className="flex min-w-0 items-start gap-2">
+            <FaLocationDot className="mt-1 shrink-0 text-purple-400" />
+            <span className="break-words">{introduction.location}</span>
           </p>
-          <p className="flex px-2 py-2  gap-2">
-            <MdOutlineEmail className="m-auto" />
-            {introduction.email}
-          </p>
-        </span>
 
-        <span className="flex gap-4">
+          <p className="flex min-w-0 items-start gap-2">
+            <MdOutlineEmail className="mt-1 shrink-0 text-purple-400" />
+            <span className="break-all">{introduction.email}</span>
+          </p>
+        </div>
+
+        {/* Buttons */}
+        <div className="mt-7 flex flex-col gap-3 sm:flex-row sm:flex-wrap sm:gap-4">
           <button
             onClick={() => scrollToSection("experience")}
-            className="mt-6 bg-blue-600 hover:bg-blue-700 px-8 py-4 rounded-full text-white text-lg font-medium transition duration-300 ease-in-out transform hover:scale-105 flex items-center gap-3"
+            className="flex w-full items-center justify-center gap-2 rounded-full bg-purple-600 px-6 py-3 text-sm font-semibold text-white shadow-lg shadow-purple-950/20 transition-all duration-300 hover:-translate-y-0.5 hover:bg-purple-500 hover:shadow-purple-500/20 sm:w-auto sm:text-base"
           >
-            View Experience →
+            View Experience
+            <span aria-hidden="true">→</span>
           </button>
 
-          <a href="./Gaurav_Resume.pdf" download>
-            <button className="mt-6 bg-gray-600 hover:bg-gray-700 px-8 py-4 rounded-full text-white text-lg font-medium transition duration-300 ease-in-out transform hover:scale-105 flex items-center gap-3">
+          <a href="/Bisht_Gaurav_AI.pdf" download className="w-full sm:w-auto">
+            <span className="flex w-full items-center justify-center gap-2 rounded-full border border-white/15 bg-white/[0.03] px-6 py-3 text-sm font-semibold text-gray-200 transition-all duration-300 hover:-translate-y-0.5 hover:border-purple-400/50 hover:bg-purple-500/[0.08] sm:text-base">
               Download Resume
-              <GoDownload />
-            </button>
+              <GoDownload className="text-purple-400" />
+            </span>
           </a>
-        </span>
+        </div>
 
-        {/* <p className="text-4xl text-gray-600 mb-6">
-          I'm{" "}
-          <span className="text-blue-500 border-r-2 border-blue-500 pr-1 animate-pulse">
-            {displayText}
-          </span>
-        </p> */}
-
-        <div className="flex gap-4 text-gray-600"></div>
+        {/* Bottom accent */}
+        <div className="mt-9 h-px w-full max-w-sm bg-gradient-to-r from-purple-500/50 via-purple-500/15 to-transparent" />
       </div>
 
-      {/* RIGHT IMAGE */}
-      <div
-        className="w-1/2 h-full bg-cover bg-right bg-no-repeat"
-        style={{
-          backgroundImage: `url(${bgImage})`,
-        }}
-      >
-        <div className="h-full w-full "></div>
+      {/* Profile image - desktop */}
+      <div className="relative order-2 hidden h-screen w-1/2 shrink-0 lg:sticky lg:top-0 lg:block">
+        <img
+          src={bgImage}
+          alt="Profile portrait"
+          className="h-full w-full object-cover object-right"
+        />
+
+        {/* Black gradient overlays */}
+        <div className="pointer-events-none absolute inset-0 bg-gradient-to-t from-[#050505]/60 via-transparent to-[#050505]/20" />
+        <div className="pointer-events-none absolute inset-y-0 left-0 w-1/3 bg-gradient-to-r from-[#050505] via-[#050505]/60 to-transparent" />
+
+        {/* Subtle purple corner accent */}
+        <div className="pointer-events-none absolute bottom-10 right-10 h-24 w-24 rounded-full border border-purple-400/20" />
       </div>
-    </div>
+    </section>
   );
 }

@@ -5,16 +5,13 @@ const initialState = {
     id: 1,
     name: "Gaurav Singh Bisht",
     title: {
-      first: "Software Developer",
+      first: "Ex- Associate Software Developer",
       company: "@Thoughts2Binary",
     },
-    intro: `I build scalable and high-performance web applications using React,
-          JavaScript, Node.js, and MongoDB. My focus is on creating clean,
-          user-centric interfaces, integrating efficient APIs, and optimizing
-          applications for real-world performance. I’m also exploring AI-powered
-          solutions, leveraging LLM APIs to build smarter and more impactful
-          applications.`,
-    location: "Gurugram, Haryana",
+    intro: `Associate Software Engineer with 2 years of experience, full-stack web development using React.js, Next.js,
+JavaScript, TypeScript, Node.js, Express.js, REST APIs, and SQL. Skilled in reusable component architecture, performance optimization, debugging, and API integration. Proven ability in end-to-end feature
+delivery, code reviews, and mentoring, with growing expertise in AI-powered applications.`,
+    location: "Open to all locations",
     email: "gvsingh999@gmail.com",
   },
 };

@@ -1,96 +1,131 @@
 import { createSlice } from "@reduxjs/toolkit";
-//logos
-import { IoLogoJavascript } from "react-icons/io5";
-import { IoTerminalOutline, IoTerminalSharp } from "react-icons/io5";
-import { IoCodeSlash } from "react-icons/io5";
-import { FaDatabase } from "react-icons/fa";
-import { FaBrain } from "react-icons/fa";
-import { PiGraduationCapFill } from "react-icons/pi";
-import { SlBadge } from "react-icons/sl";
-import { BsCalendarDateFill } from "react-icons/bs";
-import { FaCertificate } from "react-icons/fa6";
+
 import {
+  FaCode,
+  FaBrain,
+  FaDatabase,
   FaReact,
   FaBootstrap,
   FaGitAlt,
   FaAws,
   FaNodeJs,
-} from "react-icons/fa";
-import { FaHtml5, FaCss, FaNode } from "react-icons/fa6";
-import { RiTailwindCssFill, RiNextjsLine } from "react-icons/ri";
-import {
-  SiExpress,
-  SiMongodb,
-  SiMysql,
-  SiOpenai,
-  SiGooglegemini,
-} from "react-icons/si";
-import { MdPsychology } from "react-icons/md";
-import { VscVscodeInsiders } from "react-icons/vsc";
-import {
+  FaHtml5,
+  FaCss3Alt,
   FaUsers,
   FaComments,
   FaSyncAlt,
   FaSearch,
   FaLightbulb,
+  FaDocker,
+  FaServer,
 } from "react-icons/fa";
-import { MdOutlinePsychology } from "react-icons/md";
+
+import {
+  SiJavascript,
+  SiExpress,
+  SiMongodb,
+  SiMysql,
+  SiPostgresql,
+  SiTypescript,
+  SiNextdotjs,
+  SiTailwindcss,
+  SiNodedotjs,
+  SiRedux,
+  SiPython,
+  SiNumpy,
+  SiPandas,
+  SiJest,
+} from "react-icons/si";
+
+import { RiNextjsLine, RiTailwindCssFill } from "react-icons/ri";
+import { IoCodeSlash } from "react-icons/io5";
+import { MdPsychology, MdOutlinePsychology } from "react-icons/md";
+import { VscVscodeInsiders } from "react-icons/vsc";
 
 const initialState = {
   skill: [
     {
+      id: "frontend",
       title: "Frontend Engineering",
       icon: IoCodeSlash,
+      color: "#c084fc",
       skills: [
-        { name: "React.js", icon: FaReact, color: "blue" },
-        { name: "JavaScript", icon: IoLogoJavascript, color: "yellow" },
-        { name: "HTML5", icon: FaHtml5, color: "orange" },
-        { name: "CSS", icon: FaCss, color: "yellow" },
-        { name: "Tailwind CSS", icon: RiTailwindCssFill, color: "blue" },
-        { name: "Bootstrap", icon: FaBootstrap, color: "purple" },
-        { name: "Next.Js", icon: RiNextjsLine, color: "pink" },
-      ],
-    },
-    {
-      title: "Backend & Databases",
-      icon: FaDatabase,
-      skills: [
-        { name: "Node.js", icon: FaNodeJs, color: "green" },
-        { name: "Express.js", icon: SiExpress, color: "gray" },
-        { name: "MongoDB", icon: SiMongodb, color: "green" },
-        { name: "MySQL", icon: SiMysql, color: "blue" },
-      ],
-    },
-    {
-      title: "AI & Developer Tools",
-      icon: FaBrain,
-      skills: [
-        { name: "Prompt Engineering", icon: MdPsychology, color: "purple" },
-        { name: "OpenAI APIs", icon: SiOpenai, color: "black" },
-        { name: "Gemini APIs", icon: SiGooglegemini, color: "blue" },
-        { name: "Git", icon: FaGitAlt, color: "orange" },
-        { name: "AWS (Basic)", icon: FaAws, color: "yellow" },
-        { name: "VS Code", icon: VscVscodeInsiders, color: "blue" },
+        { name: "React.js", icon: FaReact },
+        { name: "JavaScript", icon: SiJavascript },
+        { name: "TypeScript", icon: SiTypescript },
+        { name: "HTML5", icon: FaHtml5 },
+        { name: "CSS3", icon: FaCss3Alt },
+        { name: "Tailwind CSS", icon: RiTailwindCssFill },
+        { name: "Bootstrap", icon: FaBootstrap },
+        { name: "Next.js", icon: RiNextjsLine },
+        { name: "Redux Toolkit", icon: SiRedux },
       ],
     },
 
     {
-      title: "Soft Skills",
-      icon: FaBrain,
+      id: "backend",
+      title: "Backend & Databases",
+      icon: FaDatabase,
+      color: "#a78bfa",
       skills: [
-        { name: "Quick Learner", icon: MdOutlinePsychology, color: "purple" },
-        { name: "Problem Solving", icon: FaLightbulb, color: "yellow" },
-        { name: "Team Collaboration", icon: FaUsers, color: "blue" },
-        { name: "Effective Communication", icon: FaComments, color: "green" },
-        { name: "Adaptability", icon: FaSyncAlt, color: "orange" },
-        { name: "Attention to Detail", icon: FaSearch, color: "pink" },
-        { name: "Analytical Thinking", icon: FaBrain, color: "purple" },
+        { name: "Node.js", icon: FaNodeJs },
+        { name: "Express.js", icon: SiExpress },
+        { name: "REST APIs", icon: FaServer },
+        { name: "MongoDB", icon: SiMongodb },
+        { name: "MySQL", icon: SiMysql },
+        { name: "PostgreSQL", icon: SiPostgresql },
+      ],
+    },
+
+    {
+      id: "ai",
+      title: "AI & Data",
+      icon: FaBrain,
+      color: "#e879f9",
+      skills: [
+        { name: "Python", icon: SiPython },
+        { name: "NumPy", icon: SiNumpy },
+        { name: "Pandas", icon: SiPandas },
+        { name: "OpenAI APIs", icon: FaBrain },
+        { name: "Gemini APIs", icon: FaBrain },
+        { name: "Prompt Engineering", icon: MdPsychology },
+        { name: "AI/ML Fundamentals", icon: FaBrain },
+      ],
+    },
+
+    {
+      id: "tools",
+      title: "Tools & Cloud",
+      icon: FaCode,
+      color: "#818cf8",
+      skills: [
+        { name: "Git", icon: FaGitAlt },
+        { name: "AWS (Basic)", icon: FaAws },
+        { name: "Docker (Basic)", icon: FaDocker },
+        { name: "VS Code", icon: VscVscodeInsiders },
+        { name: "Jest", icon: SiJest },
+      ],
+    },
+
+    {
+      id: "soft",
+      title: "Professional Skills",
+      icon: FaUsers,
+      color: "#c084fc",
+      skills: [
+        { name: "Quick Learner", icon: MdOutlinePsychology },
+        { name: "Problem Solving", icon: FaLightbulb },
+        { name: "Team Collaboration", icon: FaUsers },
+        { name: "Communication", icon: FaComments },
+        { name: "Adaptability", icon: FaSyncAlt },
+        { name: "Attention to Detail", icon: FaSearch },
+        { name: "Analytical Thinking", icon: FaBrain },
       ],
     },
   ],
 };
 
-export const skillSlice = createSlice({
+const skillSlice = createSlice({
   name: "skill",
   initialState,
   reducers: {},

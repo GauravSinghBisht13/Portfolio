@@ -1,55 +1,82 @@
 import React from "react";
+import { FaArrowUpRightFromSquare } from "react-icons/fa6";
 
-const ProjectCard = ({ index, data }) => {
+const MAX_TAGS = 4;
+
+const ProjectCard = ({ data, index = 0, active = true }) => {
+  const technologies = data.technologies || [];
+  const visibleTech = technologies.slice(0, MAX_TAGS);
+  const hiddenCount = technologies.length - visibleTech.length;
+
   return (
     <div
-      className="border-white/10 bg-white/5 rounded-2xl px-5 py-5 
-      flex flex-col h-full
-      transition-all duration-300 ease-in-out 
-      hover:-translate-y-2 hover:scale-105 hover:bg-white/10 hover:shadow-xl group"
+      className={`group relative flex h-full w-full flex-col overflow-hidden rounded-2xl border bg-[#0a0a0c] p-4 text-white transition-[border-color,box-shadow] duration-500 sm:p-5 ${
+        active
+          ? "border-purple-400/40 shadow-[0_30px_90px_rgba(0,0,0,0.65),0_0_40px_rgba(168,85,247,0.15)]"
+          : "border-white/10 shadow-[0_16px_40px_rgba(0,0,0,0.5)]"
+      }`}
     >
-      {/* Top Content */}
-      <div className="flex-grow">
-        {/* Image */}
-        <div className="overflow-hidden rounded-xl h-48">
-          <img
-            src={data.image}
-            alt={data.title}
-            className="w-full h-full object-cover transition duration-300 group-hover:scale-110"
-          />
-        </div>
+      <div className="pointer-events-none absolute -right-14 -top-16 h-44 w-44 rounded-full bg-purple-500/[0.12] blur-3xl" />
 
-        {/* Text */}
-        <div className="text-white mt-5">
-          <p className="text-3xl font-bold">{data.title}</p>
-          <p className="text-lg opacity-60 mt-2">{data.description}</p>
+      {/* Image */}
+      <div className="relative h-[36%] min-h-[120px] shrink-0 overflow-hidden rounded-xl border border-white/10">
+        <img
+          src={data.image}
+          alt={data.title}
+          className="h-full w-full object-cover"
+        />
+        <div className="absolute inset-0 bg-gradient-to-t from-[#0a0a0c]/70 via-transparent to-transparent" />
+        <span className="absolute left-3 top-3 rounded-full border border-white/15 bg-black/50 px-2.5 py-1 text-[10px] font-semibold uppercase tracking-widest text-purple-300 backdrop-blur">
+          Project {String(index + 1).padStart(2, "0")}
+        </span>
+      </div>
 
-          {/* Tech Tags */}
-          <div className="flex gap-3 mt-10 flex-wrap">
-            {data.technologies.map((tech, index) => (
-              <div
-                key={index}
-                className="border border-white/10 rounded-xl bg-white/5 px-2 py-2 text-sm"
+      {/* Text */}
+      <div className="relative mt-4 min-h-0 flex-1 overflow-hidden">
+        <h3 className="line-clamp-1 text-xl font-bold leading-tight tracking-tight text-white sm:text-2xl">
+          {data.title}
+        </h3>
+        <p className="mt-2 line-clamp-5 text-sm leading-6 text-gray-400">
+          {data.description}
+        </p>
+
+        {visibleTech.length > 0 && (
+          <div className="mt-4 flex flex-wrap gap-2">
+            {visibleTech.map((tech, i) => (
+              <span
+                key={`${tech}-${i}`}
+                className="rounded-lg border border-white/10 bg-white/[0.03] px-2.5 py-1 text-xs text-gray-300"
               >
                 {tech}
-              </div>
+              </span>
             ))}
+            {hiddenCount > 0 && (
+              <span className="rounded-lg border border-purple-400/20 bg-purple-500/10 px-2.5 py-1 text-xs text-purple-300">
+                +{hiddenCount}
+              </span>
+            )}
           </div>
-        </div>
+        )}
       </div>
 
-      {/* Bottom Section (FIXED ALIGNMENT) */}
-      <div className="mt-5">
-        <div className="border-b border-white/10 mb-5"></div>
-
+      {/* Action */}
+      <div className="relative mt-3 shrink-0 border-t border-white/10 pt-3">
         <button
-          onClick={() => window.open(data.view, "_blank")}
-          className="border border-gray-600 px-6 py-3 rounded-lg w-[95%] mx-auto 
-          hover:bg-gray-800 transition flex items-center justify-center text-white"
+          type="button"
+          onClick={() => data.view && window.open(data.view, "_blank")}
+          className="group/btn flex w-full items-center justify-center gap-2 rounded-lg border border-purple-400/30 bg-purple-500/10 px-5 py-2.5 text-sm font-semibold text-purple-200 transition hover:border-purple-400/60 hover:bg-purple-500/20"
         >
           View Project
+          <FaArrowUpRightFromSquare className="text-xs transition-transform group-hover/btn:-translate-y-0.5 group-hover/btn:translate-x-0.5" />
         </button>
       </div>
+
+      {/* Accent underline, same idea as the stat blocks */}
+      <div
+        className={`absolute bottom-0 left-0 h-px bg-purple-500/70 transition-all duration-500 ${
+          active ? "w-full" : "w-12"
+        }`}
+      />
     </div>
   );
 };

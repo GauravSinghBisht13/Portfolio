@@ -15,7 +15,7 @@ export default function Hero() {
 
         {/* Role */}
         <h2 className="text-xl text-gray-400">
-          Software Developer{" "}
+          Ex- Software Developer{" "}
           <span className="text-blue-400">@Thoughts2binary</span>
         </h2>
 
@@ -51,9 +51,7 @@ export default function Hero() {
         </div>
       </div>
 
-      <div>
-        
-      </div>
+      <div></div>
     </section>
   );
 }
