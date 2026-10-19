@@ -9,7 +9,7 @@ import Achivement from "./Components/Achivement";
 // import Skills from "./Components/Skills";
 import Projects from "./Components/Projects";
 import Social from "./Components/Social";
-import TechSkills from "./components/tech_skills";
+import TechSkills from "./Components/tech_skills";
 import { store } from "./store/store";
 
 function App() {
